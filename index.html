@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="Percentage Calculator">
+
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <style>
+            .floatRight {float: right;}
+        </style>
+
+    </head>
+
+    <body>
+        <div class="container">
+
+            <div class="row">
+                <div class='card-panel col s12'>
+                    <h5> Youtube RSS
+                        <span class='floatRight'>
+                            <a href='../' class="waves-effect waves-teal btn-flat btn-small"><i class="material-icons left">chevron_left</i>Back</a>
+                        </span>
+                    </h5>
+                </div>
+            </div>
+
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s9">
+                            <input class="" id="youtubeChannel" type="text">
+                            <label for="youtubeChannel">Youtube channel / user</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <a id="resultChannelBtn" class="waves-effect waves-light btn validListener"><i class="material-icons left">rss_feed</i>Get channel RSS</a>
+                        </div>  
+                    </div>
+                </form>
+            </div>
+
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input disabled id="resultChannel" type="text">
+                            <label for="resultChannel">Channel RSS</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s9">
+                            <input class="" id="youtubePlaylist" type="text">
+                            <label for="youtubePlaylist">Youtube playlist</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <a id="resultPlaylistBtn" class="waves-effect waves-light btn validListener"><i class="material-icons left">rss_feed</i>Get playlist RSS</a>
+                        </div>                          
+                    </div>
+                </form>
+            </div>
+
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input disabled id="resultPlaylist" type="text">
+                            <label for="resultPlaylist">Playlist RSS</label>
+                        </div>                     
+                    </div>
+                </form>
+            </div>        
+
+            <div class="row">
+                2019 - Smaha - <a href="https://www.smaha-consulting.com">https://www.smaha-consulting.com</a>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        <script type="text/javascript">
+
+            const getChannelRSS = (type, exp) => exp !== null ? `https://www.youtube.com/feeds/videos.xml?${type}=${exp[1]}` : `Please enter a valid youtube URL`;
+            
+            const getChannelId = (url) => {
+
+                const isChannel = /(?:channel\/)(\w+-\w+|\w+)/g,
+                    isUser = /(?:c\/|user\/)(\w+-\w+|\w+)/g,
+                    channelId = isChannel.exec(url),
+                    userId = isUser.exec(url);
+
+                return channelId !== null ? getChannelRSS("channel_id", channelId): getChannelRSS("user", userId);
+            }
+
+            const getPlaylistId = (url) => {
+   
+                const isPLaylist = /(?:list=)(\w+)/g,
+                    playlistId = isPLaylist.exec(url);
+
+                return playlistId !== null ? `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId[1]}` : `${url} is not a valid youtube URL`;
+
+            }
+
+            $("#resultChannelBtn").on("click", function() {
+                $("#resultChannel").val(getChannelId($('#youtubeChannel').val()));
+            });
+            
+            $("#resultPlaylistBtn").on("click", function() {
+                $("#resultPlaylist").val(getPlaylistId($('#youtubePlaylist').val()));
+            });
+
+        </script>
+    </body>
+</html>
