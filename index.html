@@ -102,7 +102,7 @@
 
             const getPlaylistId = (url) => {
    
-                const isPLaylist = /(?:list=)(\w+)/g,
+                const isPLaylist = /(?:list=)([\w_-])+/g,
                     playlistId = isPLaylist.exec(url);
 
                 return playlistId !== null ? `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId[1]}` : `${url} is not a valid youtube URL`;
