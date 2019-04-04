@@ -33,7 +33,7 @@
                     <div class="row">
                         <div class="input-field col s9">
                             <input class="" id="youtubeChannel" type="text">
-                            <label for="youtubeChannel">Youtube channel / user</label>
+                            <label class="active" for="youtubeChannel">Youtube channel / user</label>
                         </div>
                         <div class="input-field col s3">
                             <a id="resultChannelBtn" class="waves-effect waves-light btn validListener"><i class="material-icons left">rss_feed</i>Get channel RSS</a>
@@ -47,7 +47,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <input disabled id="resultChannel" type="text">
-                            <label for="resultChannel">Channel RSS</label>
+                            <label class="active" for="resultChannel">Channel RSS</label>
                         </div>
                     </div>
                 </form>
@@ -58,7 +58,7 @@
                     <div class="row">
                         <div class="input-field col s9">
                             <input class="" id="youtubePlaylist" type="text">
-                            <label for="youtubePlaylist">Youtube playlist</label>
+                            <label class="active" for="youtubePlaylist">Youtube playlist</label>
                         </div>
                         <div class="input-field col s3">
                             <a id="resultPlaylistBtn" class="waves-effect waves-light btn validListener"><i class="material-icons left">rss_feed</i>Get playlist RSS</a>
@@ -72,7 +72,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <input disabled id="resultPlaylist" type="text">
-                            <label for="resultPlaylist">Playlist RSS</label>
+                            <label class="active" for="resultPlaylist">Playlist RSS</label>
                         </div>                     
                     </div>
                 </form>
@@ -111,10 +111,12 @@
 
             $("#resultChannelBtn").on("click", function() {
                 $("#resultChannel").val(getChannelId($('#youtubeChannel').val()));
+                M.updateTextFields();
             });
             
             $("#resultPlaylistBtn").on("click", function() {
                 $("#resultPlaylist").val(getPlaylistId($('#youtubePlaylist').val()));
+                M.updateTextFields();
             });
 
         </script>
