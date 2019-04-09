@@ -45,10 +45,13 @@
             <div class="row">
                 <form class="col s12">
                     <div class="row">
-                        <div class="input-field col s12">
+                        <div class="input-field col s9">
                             <input id="resultChannel" type="text">
                             <label class="active" for="resultChannel">Channel RSS</label>
                         </div>
+                        <div class="input-field col s3">
+                            <a id="copyChannelBtn" class="waves-effect waves-light btn copyToClipboard"><i class="material-icons left">rss_feed</i>Copy to clipboard</a>
+                        </div>                          
                     </div>
                 </form>
             </div>
@@ -70,10 +73,13 @@
             <div class="row">
                 <form class="col s12">
                     <div class="row">
-                        <div class="input-field col s12">
+                        <div class="input-field col s9">
                             <input id="resultPlaylist" type="text">
                             <label class="active" for="resultPlaylist">Playlist RSS</label>
-                        </div>                     
+                        </div>  
+                        <div class="input-field col s3">
+                            <a id="copyPlaylistBtn" class="waves-effect waves-light btn copyToClipboard"><i class="material-icons left">rss_feed</i>Copy to clipboard</a>
+                        </div>                                             
                     </div>
                 </form>
             </div>        
@@ -105,7 +111,7 @@
                 const isPLaylist = /(?:list=)([\w_-]+)/g,
                     playlistId = isPLaylist.exec(url);
 
-                return playlistId !== null ? `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId[1]}` : `${url} is not a valid youtube URL`;
+                return playlistId !== null ? `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId[1]}` : `Not a valid youtube URL`;
 
             }
 
@@ -119,6 +125,15 @@
                 M.updateTextFields();
             });
 
+            $(".copyToClipboard").on("click", function() {
+
+                const selectedInput = $(this).attr('id') === 'copyChannelBtn' ? $(`#resultChannel`) : $(`#resultPlaylist`);
+
+                selectedInput.select();
+                document.execCommand("copy");
+
+                M.toast({html: 'URL copied to clipboard!', displayLength: 2000});
+            });
         </script>
     </body>
 </html>
